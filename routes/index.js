@@ -2,12 +2,9 @@ const express = require('express');
 const router = express.Router();
 const toysController = require('../controllers/ToysController');
 
-router.get('/toys', (req, res) => {
-    toysController.getToys(req, res);
-});
-
-router.post('/toys', (req, res) => {
-    toysController.createToys(req, res);
-});
+router.get('/toys', toysController.getToys);
+router.post('/toys', toysController.createToys);
+router.put('/toys/:id', toysController.updateToys);
+router.delete('/toys/:id', toysController.deleteToys);
 
 module.exports = router;

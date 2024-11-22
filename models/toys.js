@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     price: DataTypes.DECIMAL,
     company: DataTypes.STRING,
-    size: DataTypes.STRING
+    size: DataTypes.STRING,
+    image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Toys',
