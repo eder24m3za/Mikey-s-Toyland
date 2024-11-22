@@ -132,6 +132,18 @@ module.exports = {
                 return res.status(404).send({ errors: 'Toy not found' });
             }
 
+            try {
+                if (toy.image) {
+                    const oldImagePath = path.join(__dirname, '../public/images', toy.image);
+                    if (fs.existsSync(oldImagePath)) {
+                        fs.unlinkSync(oldImagePath);
+                        console.log('Imagen eliminada:', oldImagePath);
+                    }
+                }
+            } catch (err) {
+                console.error('Error al eliminar la imagen:', err);
+            }
+            
             await toy.destroy();
             return res.status(200).send({ message: 'Toy deleted successfully', data: toy });
         } catch (err) {
