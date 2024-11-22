@@ -30,7 +30,26 @@ module.exports = {
             const toys = await Toys.findAll();
             return res.status(200).send({ message: 'Toys retrieved successfully', data: toys });
         } catch (err) {
-            return res.status(500).send({ errors: 'Error retrieving toys' });
+            return res.status(500).send({ errors: 'Error retrieving toys' + err });
+        }
+    },
+
+    getToy: async (req, res) => {
+        const { id } = req.params;
+
+        if (!id || isNaN(id)) {
+            return res.status(400).send({ errors: 'Invalid or missing ID' });
+        }
+
+        try {
+            const toy = await Toys.findOne({ where: { id } });
+            if (!toy) {
+                return res.status(404).send({ errors: 'Toy not found' });
+            }
+
+            return res.status(200).send({ message: 'Toy retrieved successfully', data: toy });
+        } catch (err) {
+            return res.status(500).send({ errors: 'Error retrieving toy: ' + err });
         }
     },
 
